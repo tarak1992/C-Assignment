@@ -24,5 +24,23 @@ namespace Calculator
         {
             InitializeComponent();
         }
+
+        BinaryOperation _Op = new BinaryOperation();
+
+        private void Number_Clicked(object sender, RoutedEventArgs e)
+        {
+            _Op.StrOperand += ((Button)sender).Content.ToString();
+            Results.Text = _Op.StrOperand;
+        }
+
+        private void Operator_Clicked(object sender, RoutedEventArgs e)
+        {
+            _Op = new BinaryOperation
+            {
+                PreviousTotal = _Op.GetResults(),
+                Operator = ((Button)sender).Content.ToString()
+            };
+            Results.Text = _Op.GetResults().ToString();
+        }
     }
 }

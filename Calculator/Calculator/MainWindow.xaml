@@ -2,7 +2,50 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="MainWindow" Height="350" Width="525">
+    <Window.Resources>
+        <Style TargetType="Button">
+            <Setter Property="Margin" Value="5" />
+            <Setter Property="FontWeight" Value="ExtraBold" />
+            <Setter Property="FontSize" Value="24" />
+        </Style>
+    </Window.Resources>
     <Grid>
-        
+        <Grid.RowDefinitions>
+            <RowDefinition Height="41"/>
+            <RowDefinition Height="279*"/>
+        </Grid.RowDefinitions>
+        <TextBox Name="Results" />
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="1*"/>
+            </Grid.RowDefinitions>
+            <Button >C</Button>
+            <Button Grid.Row="1" Grid.Column="0" Click="Number_Clicked" >7</Button>
+            <Button Grid.Row="1" Grid.Column="1" Click="Number_Clicked" >8</Button>
+            <Button Grid.Row="1" Grid.Column="2" Click="Number_Clicked" >9</Button>
+            <Button Grid.Row="2" Grid.Column="0" Click="Number_Clicked" >4</Button>
+            <Button Grid.Row="2" Grid.Column="1" Click="Number_Clicked" >5</Button>
+            <Button Grid.Row="2" Grid.Column="2" Click="Number_Clicked" >6</Button>
+            <Button Grid.Row="3" Grid.Column="0" Click="Number_Clicked" >1</Button>
+            <Button Grid.Row="3" Grid.Column="1" Click="Number_Clicked" >2</Button>
+            <Button Grid.Row="3" Grid.Column="2" Click="Number_Clicked" >3</Button>
+            <Button Grid.Row="4" Grid.Column="0" Click="Number_Clicked" >0</Button>
+            <Button Grid.Row="0" Grid.Column="4" Click="Operator_Clicked" >-</Button>
+            <Button Grid.Row="1" Grid.Column="4" Click="Operator_Clicked" >+</Button>
+            <Button Grid.Row="2" Grid.Column="4" Click="Operator_Clicked" >x</Button>
+            <Button Grid.Row="3" Grid.Column="4" Click="Operator_Clicked" >/</Button>
+            <Button Grid.Row="4" Grid.Column="4" Click="Operator_Clicked" >=</Button>
+        </Grid>
     </Grid>
 </Window>
