@@ -10,12 +10,17 @@
         </Style>
     </Window.Resources>
     <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="159*"/>
+            <ColumnDefinition Width="358*"/>
+        </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="41"/>
             <RowDefinition Height="279*"/>
         </Grid.RowDefinitions>
-        <TextBox Name="Results" />
-        <Grid Grid.Row="1">
+        <TextBox Name="Results" Grid.ColumnSpan="2"  />
+        <ListBox Grid.Row="1" Name="History" ></ListBox>
+        <Grid Grid.Row="1" Grid.Column="1">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="1*"/>
                 <ColumnDefinition Width="1*"/>

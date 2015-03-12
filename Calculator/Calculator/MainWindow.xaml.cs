@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -23,24 +24,28 @@ namespace Calculator
         public MainWindow()
         {
             InitializeComponent();
+            History.ItemsSource = _Operations;
         }
 
-        BinaryOperation _Op = new BinaryOperation();
+        BinaryOperation _Op = new BinaryOperation();        
+        ObservableCollection< BinaryOperation > _Operations = new ObservableCollection< BinaryOperation>();
 
         private void Number_Clicked(object sender, RoutedEventArgs e)
         {
+            
             _Op.StrOperand += ((Button)sender).Content.ToString();
             Results.Text = _Op.StrOperand;
         }
 
         private void Operator_Clicked(object sender, RoutedEventArgs e)
         {
+            _Operations.Add(_Op);
             _Op = new BinaryOperation
             {
-                PreviousTotal = _Op.GetResults(),
+                PreviousTotal = _Op.Results,
                 Operator = ((Button)sender).Content.ToString()
             };
-            Results.Text = _Op.GetResults().ToString();
+            Results.Text = _Op.Results.ToString();
         }
     }
 }
