@@ -28,7 +28,7 @@ namespace Calculator
         }
 
         BinaryOperation _Op = new BinaryOperation();        
-        ObservableCollection< BinaryOperation > _Operations = new ObservableCollection< BinaryOperation>();
+        ObservableCollection< Operation > _Operations = new ObservableCollection< Operation>();
 
         private void Number_Clicked(object sender, RoutedEventArgs e)
         {
@@ -45,7 +45,25 @@ namespace Calculator
                 PreviousTotal = _Op.Results,
                 Operator = ((Button)sender).Content.ToString()
             };
-            Results.Text = _Op.Results.ToString();
+
+            Results.Text = _Op.PreviousTotal.ToString();
+        }
+        private void UnaryOperator_Clicked(object sender, RoutedEventArgs e)
+        {
+            _Operations.Add(_Op);
+            var op = new Operation
+            {
+                PreviousTotal = _Op.Results,
+                Operator = ((Button)sender).Content.ToString()
+            };
+            _Operations.Add(op);
+            _Op = new BinaryOperation
+            {
+                PreviousTotal = op.Results,
+                Operator = "+"
+            };
+
+            Results.Text = _Op.PreviousTotal.ToString();
         }
     }
 }

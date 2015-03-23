@@ -14,7 +14,7 @@ namespace CalculatorTests
             calc.PreviousTotal = 6;
             calc.StrOperand = "6";
 
-            Assert.AreEqual(12, calc.GetResults());
+            Assert.AreEqual(12, calc.Results);
         }
         [TestMethod]
         public void Multiplication()
@@ -26,7 +26,7 @@ namespace CalculatorTests
                 StrOperand = "2.5"
             };
 
-            Assert.AreEqual(20, calc.GetResults());
+            Assert.AreEqual(20, calc.Results);
         }
     }
 }
