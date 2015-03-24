@@ -60,7 +60,7 @@ namespace Calculator
             {
                 if (!float.TryParse(StrOperand, out _Operand))
                 {
-                    return PreviousTotal;
+                    return 0;
                 }
                 return _Operand;
             }
@@ -92,7 +92,7 @@ namespace Calculator
     public class OperationsVM: INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
-        public void OnPropertyChanged([CallerMemberName]string propertyName)
+        public void OnPropertyChanged([CallerMemberName]string propertyName = null)
         {
             if (PropertyChanged != null) {
                 PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
