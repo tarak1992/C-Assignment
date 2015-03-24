@@ -89,13 +89,12 @@ namespace Calculator
         }
     }
 
-    public class OperationsVM : INotifyPropertyChanged
+    public class OperationsVM: INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
         public void OnPropertyChanged([CallerMemberName]string propertyName)
         {
-            if (PropertyChanged != null)
-            {
+            if (PropertyChanged != null) {
                 PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
             }
         }
