@@ -18,8 +18,20 @@
             <RowDefinition Height="41"/>
             <RowDefinition Height="279*"/>
         </Grid.RowDefinitions>
-        <TextBox Name="Results" Grid.ColumnSpan="2"  />
-        <ListBox Grid.Row="1" Name="History" ></ListBox>
+        <TextBlock DataContext="{Binding Op}"  Grid.ColumnSpan="2" Text="{Binding DisplayText, Mode=OneWay}"  />
+        <ListBox Grid.Row="1" ItemsSource="{Binding Operations}" >
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Horizontal" >
+                        <TextBlock Text="{Binding PreviousTotal}" />
+                        <TextBlock Text="{Binding Operator}" />
+                        <TextBlock Text="{Binding Operand}" />
+                        <TextBlock> = </TextBlock>
+                        <TextBlock Text="{Binding Results}" />
+                    </StackPanel>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
         <Grid Grid.Row="1" Grid.Column="1">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="1*"/>

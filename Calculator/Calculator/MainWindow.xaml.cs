@@ -24,46 +24,41 @@ namespace Calculator
         public MainWindow()
         {
             InitializeComponent();
-            History.ItemsSource = _Operations;
+
+            this.DataContext = VM;
         }
 
-        BinaryOperation _Op = new BinaryOperation();        
-        ObservableCollection< Operation > _Operations = new ObservableCollection< Operation>();
+        CalculatorVM VM = new CalculatorVM();
 
         private void Number_Clicked(object sender, RoutedEventArgs e)
         {
             
-            _Op.StrOperand += ((Button)sender).Content.ToString();
-            Results.Text = _Op.StrOperand;
+            VM.Op.StrOperand += ((Button)sender).Content.ToString();
         }
 
         private void Operator_Clicked(object sender, RoutedEventArgs e)
         {
-            _Operations.Add(_Op);
-            _Op = new BinaryOperation
+            VM.Operations.Add(VM.Op);
+            VM.Op = new BinaryOperation
             {
-                PreviousTotal = _Op.Results,
+                PreviousTotal = VM.Op.Results,
                 Operator = ((Button)sender).Content.ToString()
             };
-
-            Results.Text = _Op.PreviousTotal.ToString();
         }
         private void UnaryOperator_Clicked(object sender, RoutedEventArgs e)
         {
-            _Operations.Add(_Op);
+            VM.Operations.Add(VM.Op);
             var op = new Operation
             {
-                PreviousTotal = _Op.Results,
+                PreviousTotal = VM.Op.Results,
                 Operator = ((Button)sender).Content.ToString()
             };
-            _Operations.Add(op);
-            _Op = new BinaryOperation
+            VM.Operations.Add(op);
+            VM.Op = new BinaryOperation
             {
                 PreviousTotal = op.Results,
                 Operator = "+"
             };
-
-            Results.Text = _Op.PreviousTotal.ToString();
         }
     }
 }

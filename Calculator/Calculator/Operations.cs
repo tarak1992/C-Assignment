@@ -8,20 +8,28 @@ using System.Threading.Tasks;
 
 namespace Calculator
 {
-    public class Operation
+    public class Operation: BaseVM
     {
         private string _Operator = "+";
         public string Operator
         {
             get { return _Operator; }
-            set { _Operator = value; }
+            set { _Operator = value; OnPropertyChanged(); OnPropertyChanged("DisplayText"); }
         }
 
         private float _PreviousTotal;
         public float PreviousTotal
         {
             get { return _PreviousTotal; }
-            set { _PreviousTotal = value; }
+            set { _PreviousTotal = value; OnPropertyChanged(); OnPropertyChanged("DisplayText"); }
+        }
+
+        public virtual string DisplayText
+        {
+            get
+            {
+                return Results.ToString();
+            }
         }
         
         public virtual float Results
@@ -51,7 +59,30 @@ namespace Calculator
 
     public class BinaryOperation : Operation
     {
-        public string StrOperand { get; set; }
+
+        public override string DisplayText
+        {
+            get
+            {
+                if (string.IsNullOrWhiteSpace(StrOperand))
+                    return PreviousTotal.ToString();
+                else
+                    return StrOperand;
+            }
+        }
+
+        private string _StrOperand;
+        public string StrOperand
+        {
+            get { return _StrOperand; }
+            set {
+                _StrOperand = value;
+                OnPropertyChanged();
+                OnPropertyChanged("Operand");
+                OnPropertyChanged("Results");
+                OnPropertyChanged("DisplayText");
+            }
+        }
 
         private float _Operand;
         public float Operand
@@ -89,7 +120,7 @@ namespace Calculator
         }
     }
 
-    public class OperationsVM: INotifyPropertyChanged
+    public class BaseVM: INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
         public void OnPropertyChanged([CallerMemberName]string propertyName = null)
