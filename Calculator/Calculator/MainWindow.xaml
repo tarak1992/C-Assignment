@@ -8,6 +8,13 @@
             <Setter Property="FontWeight" Value="ExtraBold" />
             <Setter Property="FontSize" Value="24" />
         </Style>
+        <Style TargetType="TextBlock" x:Key="Large">
+            <Setter Property="TextAlignment" Value="Right" />
+            <Setter Property="FontSize" Value="34" />
+            <Setter Property="Background" Value="Black" />
+            <Setter Property="Foreground" Value="White" />
+            <Setter Property="Padding" Value="0,0,5,5" />
+        </Style>
     </Window.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
@@ -18,7 +25,8 @@
             <RowDefinition Height="41"/>
             <RowDefinition Height="279*"/>
         </Grid.RowDefinitions>
-        <TextBlock DataContext="{Binding Op}"  Grid.ColumnSpan="2" Text="{Binding DisplayText, Mode=OneWay}"  />
+        <TextBlock Style="{StaticResource Large}" DataContext="{Binding Op}"  Grid.ColumnSpan="1" Text="{Binding Operator, Mode=OneWay}" Margin="0,0,118,0"  />
+        <TextBlock Style="{StaticResource Large}" DataContext="{Binding Op}"  Grid.ColumnSpan="2" Text="{Binding DisplayText, Mode=OneWay}" Margin="41,0,0,0"  />
         <ListBox Grid.Row="1" ItemsSource="{Binding Operations}" >
             <ListBox.ItemTemplate>
                 <DataTemplate>
