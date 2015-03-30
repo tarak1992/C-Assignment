@@ -32,8 +32,9 @@ namespace Calculator
 
         private void Number_Clicked(object sender, RoutedEventArgs e)
         {
-            
-            VM.Op.StrOperand += ((Button)sender).Content.ToString();
+            var op = VM.Op as BinaryOperation;
+            if(op != null)
+                op.StrOperand += ((Button)sender).Content.ToString();
         }
 
         private void Operator_Clicked(object sender, RoutedEventArgs e)
@@ -48,17 +49,19 @@ namespace Calculator
         private void UnaryOperator_Clicked(object sender, RoutedEventArgs e)
         {
             VM.Operations.Add(VM.Op);
-            var op = new Operation
+            VM.Op = new Operation
             {
                 PreviousTotal = VM.Op.Results,
                 Operator = ((Button)sender).Content.ToString()
             };
+            /*
             VM.Operations.Add(op);
             VM.Op = new BinaryOperation
             {
                 PreviousTotal = op.Results,
                 Operator = "+"
             };
+             * */
         }
     }
 }

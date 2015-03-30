@@ -5,6 +5,7 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 
 namespace Calculator
 {
@@ -30,6 +31,15 @@ namespace Calculator
             {
                 return Results.ToString();
             }
+        }
+
+        public virtual ICommand Number
+        {
+            get { return new DeadCommand(); }
+        }
+        public virtual ICommand BackSpace
+        {
+            get { return new DeadCommand(); }
         }
         
         public virtual float Results
@@ -59,6 +69,20 @@ namespace Calculator
 
     public class BinaryOperation : Operation
     {
+        public override ICommand BackSpace
+        {
+            get { return new BackSpaceCommand(this); }
+        }
+
+        public override ICommand Number
+        {
+            get
+            {
+                return new GenericCommand {
+                    ExecuteFunction = p => StrOperand += p
+                };
+            }
+        }
 
         public override string DisplayText
         {
@@ -130,4 +154,72 @@ namespace Calculator
             }
         }
     }
+
+    public class BackSpaceCommand : ICommand
+    {
+        public BackSpaceCommand(BinaryOperation op)
+        {
+            _Op = op;
+            _Op.PropertyChanged += (s, e) => {
+                    if (CanExecuteChanged != null) {
+                        CanExecuteChanged(this, EventArgs.Empty);
+                    }
+            };
+        }
+
+        private BinaryOperation _Op;
+
+        public bool CanExecute(object parameter)
+        {
+            return !string.IsNullOrEmpty(_Op.StrOperand);
+        }
+
+        public event EventHandler CanExecuteChanged;
+
+        public void Execute(object parameter)
+        {
+            _Op.StrOperand = _Op.StrOperand.Substring(0, _Op.StrOperand.Length - 1);
+        }
+    }
+
+    public class GenericCommand: ICommand
+    {
+
+        public Predicate<object> CanExecuteFunction { get; set; }
+        public Action<object> ExecuteFunction { get; set; }
+
+        public bool CanExecute(object parameter)
+        {
+            if (CanExecuteFunction != null)
+                return CanExecuteFunction(parameter);
+            else
+                return true;
+        }
+
+        public event EventHandler CanExecuteChanged;
+        public void OnCanExecuteChanged()
+        {
+            if (CanExecuteChanged != null) CanExecuteChanged(this, new EventArgs());
+        }
+
+        public void Execute(object parameter)
+        {
+            if (ExecuteFunction != null) ExecuteFunction(parameter);
+        }
+    }
+    public class DeadCommand : ICommand
+    {
+        public bool CanExecute(object parameter)
+        {
+            return false;
+        }
+
+        public event EventHandler CanExecuteChanged;
+
+        public void Execute(object parameter)
+        {
+            throw new NotImplementedException();
+        }
+    }
+
 }

@@ -9,8 +9,8 @@ namespace Calculator
 {
     public class CalculatorVM: BaseVM
     {
-        BinaryOperation _Op = new BinaryOperation();
-        public BinaryOperation Op
+        Operation _Op = new BinaryOperation();
+        public Operation Op
         {
             get { return _Op; }
             set { _Op = value; OnPropertyChanged(); }

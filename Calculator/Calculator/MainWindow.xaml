@@ -25,7 +25,7 @@
             <RowDefinition Height="41"/>
             <RowDefinition Height="279*"/>
         </Grid.RowDefinitions>
-        <TextBlock Style="{StaticResource Large}" DataContext="{Binding Op}"  Grid.ColumnSpan="1" Text="{Binding Operator, Mode=OneWay}" Margin="0,0,118,0"  />
+        <TextBlock HorizontalAlignment="Left" Width="41" Style="{StaticResource Large}" DataContext="{Binding Op}"  Grid.ColumnSpan="1" Text="{Binding Operator, Mode=OneWay}"  />
         <TextBlock Style="{StaticResource Large}" DataContext="{Binding Op}"  Grid.ColumnSpan="2" Text="{Binding DisplayText, Mode=OneWay}" Margin="41,0,0,0"  />
         <ListBox Grid.Row="1" ItemsSource="{Binding Operations}" >
             <ListBox.ItemTemplate>
@@ -56,9 +56,9 @@
                 <RowDefinition Height="1*"/>
             </Grid.RowDefinitions>
             <Button >C</Button>
-            <Button Grid.Row="1" Grid.Column="0" Click="Number_Clicked" >7</Button>
-            <Button Grid.Row="1" Grid.Column="1" Click="Number_Clicked" >8</Button>
-            <Button Grid.Row="1" Grid.Column="2" Click="Number_Clicked" >9</Button>
+            <Button Grid.Row="1" Grid.Column="0" Command="{Binding Op.Number}" CommandParameter="7" >7</Button>
+            <Button Grid.Row="1" Grid.Column="1" Command="{Binding Op.Number}" CommandParameter="8"  >8</Button>
+            <Button Grid.Row="1" Grid.Column="2" Command="{Binding Op.Number}" CommandParameter="9" >9</Button>
             <Button Grid.Row="2" Grid.Column="0" Click="Number_Clicked" >4</Button>
             <Button Grid.Row="2" Grid.Column="1" Click="Number_Clicked" >5</Button>
             <Button Grid.Row="2" Grid.Column="2" Click="Number_Clicked" >6</Button>
@@ -66,6 +66,7 @@
             <Button Grid.Row="3" Grid.Column="1" Click="Number_Clicked" >2</Button>
             <Button Grid.Row="3" Grid.Column="2" Click="Number_Clicked" >3</Button>
             <Button Grid.Row="4" Grid.Column="0" Click="Number_Clicked" >0</Button>
+            <Button Grid.Row="0" Grid.Column="3" Command="{Binding Op.BackSpace}" >bsp</Button>
             <Button Grid.Row="0" Grid.Column="4" Click="Operator_Clicked" >-</Button>
             <Button Grid.Row="1" Grid.Column="3" Click="UnaryOperator_Clicked" >sq</Button>
             <Button Grid.Row="1" Grid.Column="4" Click="Operator_Clicked" >+</Button>
