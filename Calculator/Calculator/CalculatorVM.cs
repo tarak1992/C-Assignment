@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 
 namespace Calculator
 {
@@ -22,7 +23,24 @@ namespace Calculator
             set { _Operations = value; OnPropertyChanged(); }
         }
 
-
+        GenericCommand _Clear;
+        public ICommand Clear
+        {
+            get
+            {
+                if (_Clear == null) {
+                    _Clear = new GenericCommand {
+                        ExecuteFunction = x => {
+                            Operations.Clear();
+                            Op = new BinaryOperation { };
+                        },
+                        CanExecuteFunction = x => Operations.Any()
+                    };
+                    _Operations.CollectionChanged += (s, e) => _Clear.OnCanExecuteChanged();
+                }
+                return _Clear;
+            }
+        } 
 
     }
 }

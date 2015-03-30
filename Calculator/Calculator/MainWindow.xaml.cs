@@ -54,14 +54,6 @@ namespace Calculator
                 PreviousTotal = VM.Op.Results,
                 Operator = ((Button)sender).Content.ToString()
             };
-            /*
-            VM.Operations.Add(op);
-            VM.Op = new BinaryOperation
-            {
-                PreviousTotal = op.Results,
-                Operator = "+"
-            };
-             * */
         }
     }
 }

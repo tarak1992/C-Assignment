@@ -55,7 +55,7 @@
                 <RowDefinition Height="1*"/>
                 <RowDefinition Height="1*"/>
             </Grid.RowDefinitions>
-            <Button >C</Button>
+            <Button Command="{Binding Clear}" >C</Button>
             <Button Grid.Row="1" Grid.Column="0" Command="{Binding Op.Number}" CommandParameter="7" >7</Button>
             <Button Grid.Row="1" Grid.Column="1" Command="{Binding Op.Number}" CommandParameter="8"  >8</Button>
             <Button Grid.Row="1" Grid.Column="2" Command="{Binding Op.Number}" CommandParameter="9" >9</Button>
@@ -72,7 +72,7 @@
             <Button Grid.Row="1" Grid.Column="4" Click="Operator_Clicked" >+</Button>
             <Button Grid.Row="2" Grid.Column="4" Click="Operator_Clicked" >x</Button>
             <Button Grid.Row="3" Grid.Column="4" Click="Operator_Clicked" >/</Button>
-            <Button Grid.Row="4" Grid.Column="4" Click="Operator_Clicked" >=</Button>
+            <Button Grid.Row="4" Grid.Column="4" Click="UnaryOperator_Clicked" >=</Button>
         </Grid>
     </Grid>
 </Window>
