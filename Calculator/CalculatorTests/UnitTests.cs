@@ -7,7 +7,7 @@ using System.Collections.ObjectModel;
 namespace CalculatorTests
 {
     [TestClass]
-    public class AssignmentTest
+    public class UnitTests
     {
         [TestMethod] //What is the average transaction amount for each tag?
         public void AverageTransactionAmount()
