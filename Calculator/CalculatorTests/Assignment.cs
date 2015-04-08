@@ -32,7 +32,7 @@ namespace CalculatorTests
             var ob = new CheckBookVM();
             ob.Fill();
 
-            var payment = ob.Transactions.GroupBy(t => t.Payee).Select(g => new { g.Key, Sum = g.Sum(t => t.Amount) });
+            var payment = ob.Transactions.GroupBy(t => t.Payee).Select(g => new { Sum = g.Sum(t => t.Amount) });
 
             Assert.AreEqual(130, payment.ElementAt(0).Sum);
             Assert.AreEqual(300, payment.ElementAt(1).Sum);
@@ -45,10 +45,10 @@ namespace CalculatorTests
             var ob = new CheckBookVM();
             ob.Fill();
 
-            var paymentF = ob.Transactions.Where(l => l.Tag == "Food").GroupBy(t => t.Payee).Select(g => new { g.Key, Sum = g.Sum(t => t.Amount) });
+            var paymentF = ob.Transactions.Where(l => l.Tag == "Food").GroupBy(t => t.Payee).Select(g => new { Sum = g.Sum(t => t.Amount) });
 
-            Assert.AreEqual(130, paymentF.First().Sum, "Moshe");
-            Assert.AreEqual(131, paymentF.Last().Sum, "Bracha");
+            Assert.AreEqual(130, paymentF.First().Sum);
+            Assert.AreEqual(131, paymentF.Last().Sum);
         }
 
         [TestMethod]  //List the transaction between April 5th and 7th
@@ -84,24 +84,33 @@ namespace CalculatorTests
             var ob = new CheckBookVM();
             ob.Fill();
 
-            var dates = ob.Transactions.GroupBy(g => g.Account).Count();
+            var total =ob.Transactions.Count();
+            var totalCheckA = ob.Transactions.Where(t => t.Account == "Checking");
+            var totalCreditA = ob.Transactions.Where(t => t.Account == "Credit");
 
-            DateTime[] date = new DateTime[] {new DateTime(2015, 07, 04),
+            var checkcount = totalCheckA.Count();
+            var creditcount = totalCreditA.Count();
+
+            DateTime[] dateCheck = new DateTime[] {new DateTime(2015, 07, 04),
                                               new DateTime(2015, 05, 04),
                                               new DateTime(2015, 04, 04),
                                               new DateTime(2015, 03, 04),
                                               new DateTime(2015, 02, 04),
-                                              new DateTime(2015, 06, 04),
-                                              new DateTime(2015, 07, 04),
+                                              new DateTime(2015, 06, 04) };
+            DateTime[] dateCredit = new DateTime[] {new DateTime(2015, 07, 04),
                                               new DateTime(2015, 06, 04),
                                               new DateTime(2015, 05, 04),
                                               new DateTime(2015, 04, 04),
                                               new DateTime(2015, 03, 04),
                                               new DateTime(2015, 02, 04)
-        };
-            for (var i = 0; i < dates; i++)
+                                             };
+            for (var i = 0; i < checkcount; i++)
             {
-                Assert.AreEqual(date[i], ob.Transactions.ElementAt(i).Date);
+                Assert.AreEqual(dateCheck[i], totalCheckA.ElementAt(i).Date);
+            }
+            for (var i = 0; i < creditcount; i++)
+            {
+                Assert.AreEqual(dateCredit[i], totalCreditA.ElementAt(i).Date);
             }
         }
 
@@ -113,11 +122,6 @@ namespace CalculatorTests
 
             var acc = ob.Transactions.Where(t => t.Tag == "Auto").Select(g => new { g.Account, g.Amount });
             var count = acc.Count();
-            //String element1 = ob.Transactions.ElementAt(0).Account;
-            //int count1 = 0;
-            //for (int i = 1; (i < count && element1 == ob.Transactions.ElementAt(i).Account); i++)
-            //  count1++;
-
 
             var MAX1 = acc.Where(a => a.Account == "Checking").Sum(a => a.Amount);
             var MAX2 = acc.Where(a => a.Account == "Credit").Sum(a => a.Amount);
@@ -128,7 +132,7 @@ namespace CalculatorTests
 
         }
 
-        [TestMethod]  //List the number of transactions from each account between April 5th and 7th
+        [TestMethod]  //List the number of transactions from each account between April 5th and 7th (Considered including 5th and 7th)
         public void NoofTransBetwDate()
         {
             var ob = new CheckBookVM();
